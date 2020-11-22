@@ -1,5 +1,11 @@
+const startupDebugger = require('debug')('app:startup')
+const dbDebugger = require('debug')('app:db')
+const config = require('config')
+const morgan = require('morgan')
+const helmet = require('helmet')
+const logger = require('./logger')
 const Joi = require('joi')
-const express = require('express');
+const express = require('express')
 const app = express()
 
 app.use(express.json())
@@ -10,6 +16,38 @@ const courses = [
     { id: 3, name: 'course3' },
     { id: 4, name: 'course4' },
 ]
+
+app.use(logger)
+
+// Buildin middlewares
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static('public'))
+
+// Third party middlewares
+app.use(helmet())
+// app.use(morgan('tiny'))
+
+// Developement Enviornment
+// console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
+// console.log(`app:${app.get('env')}`)
+
+if (app.get('env') === 'development') {
+    app.use(morgan('tiny'))
+    startupDebugger('Morgan enabled....')
+}
+
+// NODE_ENV=production,development,testing - SETTING ENV VARIABLE FOR CONFIG
+// DEBUG=app:startup, app:db - setting env variable for debug module
+// DEBUG=app:* - for all
+// DEBUG=app:startpup nodemon app.js - while starting the app
+
+// DB work
+dbDebugger('Connected to the database')
+// Configuration
+console.log('Application Name: ' + config.get('name'))
+console.log('Mail server: ' + config.get('mail.host'))
+console.log('Mail Password: ' + config.get('mail.password'))
 
 app.get('/', (req, res) => {
     res.send("Hello World");
@@ -30,7 +68,7 @@ app.get('/api/courses/:year/:month', (req, res) => {
 })
 
 app.post('/api/courses', (req, res) => {
-    const { error } = validateaCourse(req.body)
+    const { error } = validateCourse(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
     const course = {
