@@ -1,4 +1,3 @@
-const { findSourceMap } = require('module')
 const mongoose = require('mongoose')
 
 mongoose.connect('mongodb://localhost/mongo-exercises')
@@ -27,4 +26,5 @@ async function run() {
     console.log(courses)
 }
 
-run()
+// run()
+
