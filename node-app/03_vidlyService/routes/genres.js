@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { error } = validateGenre(req.body.name)
+    const { error } = validateGenre(req.body)
     if (error) return res.send(error.details[0].message)
 
     let genre = new Genre({ name: req.body.name })
