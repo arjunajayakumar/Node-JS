@@ -7,12 +7,14 @@ const courseSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        // buildin validator
         minlength: 5,
         maxlength: 255
     },
     category: {
         type: String,
         required: true,
+        // buildin validator
         enum: ['web', 'mobile', 'network']
     },
     author: String,
