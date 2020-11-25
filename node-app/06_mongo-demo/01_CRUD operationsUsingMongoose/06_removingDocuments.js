@@ -18,6 +18,7 @@ const Course = mongoose.model('Course', courseSchema)
 
 async function removeCourse(id) {
     const result = await Course.deleteOne({ _id: id })
+    const course = await Course.delete
     console.log(result)
 
 
