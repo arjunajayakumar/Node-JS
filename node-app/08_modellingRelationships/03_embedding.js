@@ -44,28 +44,3 @@ async function updateAuthor(courseId) {
 }
 
 updateAuthor('5fbf5d4685eb8a2a3f20f0a0')
-
-
-
-
-
-// async function addAuthor(courseId, author) {
-//   const course = await Course.findById(courseId);
-//   course.authors.push(author);
-//   console.log(await course.save());
-// }
-
-// async function removeAuthor(courseId, authorId) {
-//   const course = await Course.findById(courseId);
-//   var theAuthor = course.authors.id(authorId);
-//   theAuthor.remove();
-//   console.log(await course.save());
-// }
-
-// removeAuthor('5b8d9c752af5cb7130206e55', '5b8d9d3412a2833fc45382d2');
-// addAuthor('5b8d9c752af5cb7130206e55', new Author({ name: 'Amy' }))
-/* createCourse('Node Course', [
-  new Author({ name: 'Mosh' }),
-  new Author({ name: 'Josh' })
-]); */
-// updateCourse('5b8d857af88923ade835645c');
