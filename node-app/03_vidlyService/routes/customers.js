@@ -1,5 +1,5 @@
 const express = require('express')
-const { Customer, validate } = require('../model/customer')
+const { Customer, validate } = require('../models/customer')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
@@ -11,14 +11,14 @@ router.post('/', async (req, res) => {
     const { error } = validate(req.body)
     if (error) return res.send(error.details[0].message)
 
-    let customer = new Customer({
+    const customer = new Customer({
         isGold: req.body.isGold,
         name: req.body.name,
         phone: req.body.phone
 
     })
 
-    customer = await customer.save()
+    await customer.save()
     res.send(customer)
 
 })
